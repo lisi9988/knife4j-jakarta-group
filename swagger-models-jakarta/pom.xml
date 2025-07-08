@@ -1,0 +1,130 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.lisi9988</groupId>
+        <artifactId>knife4j-jakarta-group</artifactId>
+        <version>4.5.0-jakarta-parameter-group-0</version>
+    </parent>
+    <artifactId>swagger-models-jakarta</artifactId>
+    <name>swagger-models-jakarta</name>
+    <description>swagger-models-jakarta</description>
+    <version>2.2.34-jakarta-parameter-group-0</version>
+    <url>https://github.com/lisi9988/knife4j-jakarta-group</url>
+
+    <properties>
+        <coverage.complexity.minimum>0.07</coverage.complexity.minimum>
+        <coverage.line.minimum>0.0</coverage.line.minimum>
+        <jmockit-version>1.49</jmockit-version>
+        <mockito-version>2.28.2</mockito-version>
+        <testing.version>7.11.0</testing.version>
+    </properties>
+
+    <!-- <build> -->
+    <!--     <plugins> -->
+    <!--         &lt;!&ndash;   central发布插件    &ndash;&gt; -->
+    <!--         <plugin> -->
+    <!--             <groupId>org.sonatype.central</groupId> -->
+    <!--             <artifactId>central-publishing-maven-plugin</artifactId> -->
+    <!--             <version>0.8.0</version> -->
+    <!--             <extensions>true</extensions> -->
+    <!--             <configuration> -->
+    <!--                 <publishingServerId>central</publishingServerId> -->
+    <!--                 <tokenAuth>true</tokenAuth> -->
+    <!--             </configuration> -->
+    <!--         </plugin> -->
+    <!--         &lt;!&ndash;   source源码插件 &ndash;&gt; -->
+    <!--         <plugin> -->
+    <!--             <groupId>org.apache.maven.plugins</groupId> -->
+    <!--             <artifactId>maven-source-plugin</artifactId> -->
+    <!--             <version>3.3.1</version> -->
+    <!--             <executions> -->
+    <!--                 <execution> -->
+    <!--                     <id>attach-sources</id> -->
+    <!--                     <goals> -->
+    <!--                         <goal>jar-no-fork</goal> -->
+    <!--                     </goals> -->
+    <!--                 </execution> -->
+    <!--             </executions> -->
+    <!--         </plugin> -->
+    <!--         &lt;!&ndash;   javadoc插件 &ndash;&gt; -->
+    <!--         <plugin> -->
+    <!--             <groupId>org.apache.maven.plugins</groupId> -->
+    <!--             <artifactId>maven-javadoc-plugin</artifactId> -->
+    <!--             <version>3.11.2</version> -->
+    <!--             <executions> -->
+    <!--                 <execution> -->
+    <!--                     <id>attach-javadocs</id> -->
+    <!--                     <goals> -->
+    <!--                         <goal>jar</goal> -->
+    <!--                     </goals> -->
+    <!--                 </execution> -->
+    <!--             </executions> -->
+    <!--         </plugin> -->
+    <!--         <plugin> -->
+    <!--             <groupId>org.apache.maven.plugins</groupId> -->
+    <!--             <artifactId>maven-gpg-plugin</artifactId> -->
+    <!--             <version>3.2.8</version> -->
+    <!--             <executions> -->
+    <!--                 <execution> -->
+    <!--                     <id>sign-artifacts</id> -->
+    <!--                     <phase>verify</phase> -->
+    <!--                     <goals> -->
+    <!--                         <goal>sign</goal> -->
+    <!--                     </goals> -->
+    <!--                 </execution> -->
+    <!--             </executions> -->
+    <!--         </plugin> -->
+    <!--     </plugins> -->
+    <!-- </build> -->
+
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testing.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jmockit</groupId>
+            <artifactId>jmockit</artifactId>
+            <version>${jmockit-version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>3.5.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>central</id>
+            <url>https://central.sonatype.com/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>

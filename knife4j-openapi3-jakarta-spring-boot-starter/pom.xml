@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>io.github.lisi9988</groupId>
+        <artifactId>knife4j-jakarta-group</artifactId>
+        <version>4.5.0-jakarta-parameter-group-0</version>
+    </parent>
+
+
+    <!-- <groupId>io.github.lisi9988</groupId> -->
+    <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+    <name>knife4j-openapi3-jakarta-spring-boot-starter</name>
+    <description>Spring Boot autoconfigure</description>
+    <version>4.5.0-jakarta-parameter-group-0</version>
+    <url>https://github.com/lisi9988/knife4j-jakarta-group</url>
+
+    <properties>
+        <knife4j-java.version>17</knife4j-java.version>
+        <knife4j-spring3.version>6.0.6</knife4j-spring3.version>
+        <knife4j-spring-boot3.version>3.5.3</knife4j-spring-boot3.version>
+
+        <knife4j-javassist.version>3.29.2-GA</knife4j-javassist.version>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
+        <knife4j-group.version>4.5.0-parameter-group-7</knife4j-group.version>
+        <knife4j-springdoc-jakarta-group.version>2.8.9-jakarta-parameter-group-0</knife4j-springdoc-jakarta-group.version>
+        <knife4j-skipTests>true</knife4j-skipTests>
+        <knife4j.version>4.5.0</knife4j.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <version>${knife4j-spring-boot3.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-core</artifactId>
+            <version>${knife4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.lisi9988</groupId>
+            <artifactId>knife4j-openapi3-ui</artifactId>
+            <version>${knife4j-group.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.lisi9988</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${knife4j-springdoc-jakarta-group.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <scope>provided</scope>
+            <version>${knife4j-servlet-jakarta.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>3.5.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>central</id>
+            <url>https://central.sonatype.com/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
