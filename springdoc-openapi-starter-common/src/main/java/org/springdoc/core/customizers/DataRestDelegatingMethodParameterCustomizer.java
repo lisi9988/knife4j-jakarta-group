@@ -192,6 +192,11 @@ public class DataRestDelegatingMethodParameterCustomizer implements DelegatingMe
 							return parameterSchema.schemaResolution();
 						}
 
+						@Override
+						public Class<?>[] groups() {
+							return parameter.schema().groups();
+						}
+
 						private Schema parameterSchema = parameter.schema();
 
 						@Override
@@ -954,6 +959,11 @@ public class DataRestDelegatingMethodParameterCustomizer implements DelegatingMe
 								@Override
 								public SchemaResolution schemaResolution() {
 									return schema.schemaResolution();
+								}
+
+								@Override
+								public Class<?>[] groups() {
+									return schema.groups();
 								}
 							};
 						}

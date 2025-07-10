@@ -1,5 +1,6 @@
 package io.github.lisi9988.model.dto;
 
+import io.github.lisi9988.toolkit.ValidGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,13 +25,13 @@ public class UserPageDto implements Serializable {
     /**
      * 主键ID
      */
-    @Schema(description = "主键ID")
+    @Schema(description = "主键ID", groups = ValidGroup.List.class)
     private Integer id;
 
     /**
      * 用户码
      */
-    @Schema(description = "用户码")
+    @Schema(description = "用户码", groups = ValidGroup.Query.class)
     private String code;
 
     /**
@@ -48,13 +49,13 @@ public class UserPageDto implements Serializable {
     /**
      * 创建时间
      */
-    @Schema(description = "创建时间")
+    @Schema(description = "创建时间", groups = {ValidGroup.HiddenList.class})
     private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
-    @Schema(description = "更新时间")
+    @Schema(description = "更新时间", groups = {ValidGroup.HiddenQuery.class})
     private LocalDateTime updateTime;
 
 }

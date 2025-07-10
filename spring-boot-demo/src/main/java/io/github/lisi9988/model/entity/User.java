@@ -1,5 +1,6 @@
 package io.github.lisi9988.model.entity;
 
+import io.github.lisi9988.toolkit.ValidGroup;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,13 +41,13 @@ public class User implements Serializable {
     /**
      * 创建时间
      */
-    @Schema(description = "创建时间")
+    @Schema(description = "创建时间",groups = {ValidGroup.HiddenQuery.class})
     private LocalDateTime createTime;
 
     /**
      * 更新时间
      */
-    @Schema(description = "更新时间")
+    @Schema(description = "更新时间",groups = {ValidGroup.HiddenQuery.class, ValidGroup.HiddenList.class})
     private LocalDateTime updateTime;
 
 }

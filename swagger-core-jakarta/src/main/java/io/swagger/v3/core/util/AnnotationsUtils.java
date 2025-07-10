@@ -56,6 +56,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class AnnotationsUtils {
 
@@ -70,6 +72,7 @@ public abstract class AnnotationsUtils {
                 && StringUtils.isBlank(schema.format())
                 && StringUtils.isBlank(schema.title())
                 && StringUtils.isBlank(schema.description())
+                && schema.groups() != null && schema.groups().length == 0
                 && StringUtils.isBlank(schema.ref())
                 && StringUtils.isBlank(schema.name())
                 && schema.multipleOf() == 0
@@ -597,10 +600,13 @@ public abstract class AnnotationsUtils {
             Schema existingSchema,
             Schema.SchemaResolution schemaResolution,
             ModelConverterContext context) {
+
+        List<String> groups = resolveGroups(schema);
         if (schema == null || !hasSchemaAnnotation(schema)) {
             if (existingSchema == null || (!openapi31 && Schema.SchemaResolution.DEFAULT.equals(schemaResolution))) {
                 return Optional.empty();
             } else if (existingSchema != null && (openapi31 || Schema.SchemaResolution.INLINE.equals(schemaResolution))) {
+                existingSchema.setGroups(groups);
                 return Optional.of(existingSchema);
             }
         }
@@ -610,6 +616,7 @@ public abstract class AnnotationsUtils {
                 if (!Schema.SchemaResolution.DEFAULT.equals(schemaResolution)) {
                     schemaObject = existingSchema;
                 } else {
+                    existingSchema.setGroups(groups);
                     return Optional.of(existingSchema);
                 }
             }
@@ -636,8 +643,10 @@ public abstract class AnnotationsUtils {
             }
         }
         if (schema == null) {
+            schemaObject.setGroups(groups);
             return Optional.of(schemaObject);
         }
+        schemaObject.setGroups(groups);
         if (StringUtils.isNotBlank(schema.description())) {
             schemaObject.setDescription(schema.description());
         }
@@ -881,6 +890,16 @@ public abstract class AnnotationsUtils {
         }
 
         return Optional.of(schemaObject);
+    }
+
+    public static List<String> resolveGroups(io.swagger.v3.oas.annotations.media.Schema schema) {
+        if (schema != null &&
+                schema.groups() != null &&
+                schema.groups().length > 0) {
+
+            return Stream.of(schema.groups()).map(Class::getSimpleName).collect(Collectors.toList());
+        }
+        return null;
     }
 
     public static Schema resolveSchemaFromType(Class<?> schemaImplementation, Components components, JsonView jsonViewAnnotation) {
@@ -1744,6 +1763,8 @@ public abstract class AnnotationsUtils {
                                                        Components components,
                                                        JsonView jsonViewAnnotation,
                                                        boolean openapi31) {
+
+        List<String> groups = resolveGroups(schemaAnnotation);
         if (schemaImplementation != Void.class) {
             Schema schemaObject = resolveSchemaFromType(schemaImplementation, components, jsonViewAnnotation, openapi31, schemaAnnotation, arrayAnnotation, null);
             if (StringUtils.isNotBlank(schemaAnnotation.format())) {
@@ -1758,6 +1779,7 @@ public abstract class AnnotationsUtils {
                     return Optional.empty();
                 }
             } else {
+                schemaObject.setGroups(groups);
                 return Optional.of(schemaObject);
             }
 
@@ -1768,7 +1790,9 @@ public abstract class AnnotationsUtils {
                     // default to string
                     schemaFromAnnotation.get().setType("string");
                 }
-                return Optional.of(schemaFromAnnotation.get());
+                Schema schema = schemaFromAnnotation.get();
+                schema.setGroups(groups);
+                return Optional.of(schema);
             } else {
                 Optional<Schema> arraySchemaFromAnnotation = AnnotationsUtils.getArraySchema(arrayAnnotation, components, jsonViewAnnotation, openapi31, null);
                 if (arraySchemaFromAnnotation.isPresent()) {
@@ -1776,7 +1800,9 @@ public abstract class AnnotationsUtils {
                         // default to string
                         arraySchemaFromAnnotation.get().getItems().setType("string");
                     }
-                    return Optional.of(arraySchemaFromAnnotation.get());
+                    Schema schema = arraySchemaFromAnnotation.get();
+                    schema.setGroups(groups);
+                    return Optional.of(schema);
                 }
             }
         }
@@ -2683,6 +2709,21 @@ public abstract class AnnotationsUtils {
                     return patch.schemaResolution();
                 }
                 return master.schemaResolution();
+            }
+
+            @Override
+            public Class<?>[] groups() {
+                if (master.groups() != null && patch.groups() != null) {
+                    return Stream.concat(Arrays.stream(master.groups()), Arrays.stream(patch.groups()))
+                            .distinct().toArray(Class[]::new);
+                }
+                if (master.groups() != null && master.groups().length > 0){
+                    return master.groups();
+                }
+                if (patch.groups() != null && patch.groups().length > 0){
+                    return patch.groups();
+                }
+                return new Class[0];
             }
 
         };

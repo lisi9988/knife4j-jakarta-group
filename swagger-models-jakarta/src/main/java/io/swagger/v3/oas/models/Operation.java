@@ -35,6 +35,7 @@ public class Operation {
     private List<SecurityRequirement> security = null;
     private List<Server> servers = null;
     private Map<String, Object> extensions = null;
+    private String groups = null;
 
     /**
      * returns the tags property from a Operation instance.
@@ -304,6 +305,19 @@ public class Operation {
         return this;
     }
 
+    public String getGroups() {
+        return groups;
+    }
+
+    public void setGroups(String groups) {
+        this.groups = groups;
+    }
+
+    public Operation groups(String groups) {
+        this.groups = groups;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -325,12 +339,13 @@ public class Operation {
                 Objects.equals(this.deprecated, operation.deprecated) &&
                 Objects.equals(this.security, operation.security) &&
                 Objects.equals(this.servers, operation.servers) &&
-                Objects.equals(this.extensions, operation.extensions);
+                Objects.equals(this.extensions, operation.extensions) &&
+                Objects.equals(this.groups, operation.groups);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tags, summary, description, externalDocs, operationId, parameters, requestBody, responses, callbacks, deprecated, security, servers, extensions);
+        return Objects.hash(tags, summary, description, externalDocs, operationId, parameters, requestBody, responses, callbacks, deprecated, security, servers, extensions, groups);
     }
 
     public Map<String, Object> getExtensions() {
@@ -381,6 +396,7 @@ public class Operation {
         sb.append("    deprecated: ").append(toIndentedString(deprecated)).append("\n");
         sb.append("    security: ").append(toIndentedString(security)).append("\n");
         sb.append("    servers: ").append(toIndentedString(servers)).append("\n");
+        sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
         sb.append("}");
         return sb.toString();
     }

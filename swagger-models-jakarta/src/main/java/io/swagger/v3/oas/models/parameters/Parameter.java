@@ -6,6 +6,7 @@ import io.swagger.v3.oas.models.media.Content;
 import io.swagger.v3.oas.models.media.Schema;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -57,6 +58,7 @@ public class Parameter {
     private Object example = null;
     private Content content = null;
     private Map<String, Object> extensions = null;
+    private List<String> groups = null;
 
     /**
      * returns the name property from a Parameter instance.
@@ -332,6 +334,19 @@ public class Parameter {
 
     public Parameter $ref(String $ref) {
         set$ref($ref);
+        return this;
+    }
+
+    public List<String> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
+    }
+
+    public Parameter groups(List<String> groups) {
+        this.groups = groups;
         return this;
     }
 

@@ -68,6 +68,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import org.springdoc.core.utils.SchemaUtils;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.MethodParameter;
+import org.springframework.web.multipart.MultipartFile;
 
 import static org.springdoc.core.utils.Constants.DOT;
 
@@ -112,7 +113,8 @@ public class MethodParameterPojoExtractor {
 		SIMPLE_TYPES.add(OffsetTime.class);
 		SIMPLE_TYPES.add(ZoneOffset.class);
 		SIMPLE_TYPES.add(TimeZone.class);
-		
+		SIMPLE_TYPES.add(MultipartFile.class);
+
 		SIMPLE_TYPE_PREDICATES.add(Class::isPrimitive);
 		SIMPLE_TYPE_PREDICATES.add(Class::isEnum);
 		SIMPLE_TYPE_PREDICATES.add(Class::isArray);

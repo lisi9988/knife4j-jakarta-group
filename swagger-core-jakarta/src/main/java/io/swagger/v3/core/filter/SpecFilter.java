@@ -142,6 +142,7 @@ public class SpecFilter {
                 clone.setCallbacks(filteredOperationGet.getCallbacks());
                 clone.setDeprecated(filteredOperationGet.getDeprecated());
                 clone.setDescription(filteredOperationGet.getDescription());
+                clone.setGroups(filteredOperationGet.getGroups());
                 clone.setExtensions(filteredOperationGet.getExtensions());
                 clone.setExternalDocs(filteredOperationGet.getExternalDocs());
                 clone.setOperationId(filteredOperationGet.getOperationId());

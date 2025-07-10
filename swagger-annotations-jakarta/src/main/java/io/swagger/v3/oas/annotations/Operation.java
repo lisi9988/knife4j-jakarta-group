@@ -148,4 +148,9 @@ public @interface Operation {
      * @return whether or not to ignore JsonView annotations
      */
     boolean ignoreJsonView() default false;
+
+    /**
+     * 参数分组校验的,分组名称
+     */
+    Class<?> groups() default Void.class;
 }

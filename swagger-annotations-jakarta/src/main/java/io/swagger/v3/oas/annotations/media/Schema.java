@@ -646,4 +646,9 @@ public @interface Schema {
      *
      */
     SchemaResolution schemaResolution() default SchemaResolution.AUTO;
+
+    /**
+     * 参数分组校验的,分组名称
+     */
+    Class<?>[] groups() default {};
 }

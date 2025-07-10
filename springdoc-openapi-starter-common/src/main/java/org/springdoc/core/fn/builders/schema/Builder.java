@@ -405,6 +405,13 @@ public class Builder {
 	private String _const = "";
 
 	/**
+	 * The list of optional groups
+	 *
+	 * @return an optional array of groups
+	 */
+	private Class<?>[] groups = {};
+
+	/**
 	 * Instantiates a new Schema builder.
 	 */
 	private Builder() {
@@ -812,6 +819,17 @@ public class Builder {
 	 */
 	public Builder extensions(org.springdoc.core.fn.builders.extension.Builder extensionBuilder) {
 		this.extensions = ArrayUtils.add(this.extensions, extensionBuilder.build());
+		return this;
+	}
+
+	/**
+	 * 参数分数
+	 *
+	 * @param groups 分组
+	 * @return the schema builder
+	 */
+	public Builder groups(Class<?>[] groups) {
+		this.groups = groups;
 		return this;
 	}
 
@@ -1267,6 +1285,11 @@ public class Builder {
 			@Override
 			public SchemaResolution schemaResolution() {
 				return schemaResolution;
+			}
+
+			@Override
+			public Class<?>[] groups() {
+				return groups;
 			}
 		};
 	}

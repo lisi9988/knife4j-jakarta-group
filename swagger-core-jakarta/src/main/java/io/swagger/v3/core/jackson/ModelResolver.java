@@ -1228,6 +1228,7 @@ public class ModelResolver extends AbstractModelConverter implements ModelConver
                 property.setFormat(enumSchema.getFormat());
                 property.setName(enumSchema.getName());
                 property.setDescription(enumSchema.getDescription());
+                property.setGroups(enumSchema.getGroups());
             }
         }
     }
@@ -2023,6 +2024,7 @@ public class ModelResolver extends AbstractModelConverter implements ModelConver
                         .deprecated(subtypeModel.getDeprecated())
                         .additionalProperties(subtypeModel.getAdditionalProperties())
                         .description(subtypeModel.getDescription())
+                        .groups(subtypeModel.getGroups())
                         .discriminator(subtypeModel.getDiscriminator())
                         .exclusiveMaximum(subtypeModel.getExclusiveMaximum())
                         .exclusiveMinimum(subtypeModel.getExclusiveMinimum())
@@ -2155,6 +2157,16 @@ public class ModelResolver extends AbstractModelConverter implements ModelConver
     protected String resolveDescription(Annotated a, Annotation[] annotations, io.swagger.v3.oas.annotations.media.Schema schema) {
         if (schema != null && !"".equals(schema.description())) {
             return schema.description();
+        }
+        return null;
+    }
+
+    protected List<String> resolveGroups(Annotated a, Annotation[] annotations, io.swagger.v3.oas.annotations.media.Schema schema) {
+        if (schema != null &&
+                schema.groups() != null &&
+                schema.groups().length > 0) {
+
+            return Stream.of(schema.groups()).map(Class::getSimpleName).collect(Collectors.toList());
         }
         return null;
     }
@@ -3131,6 +3143,10 @@ public class ModelResolver extends AbstractModelConverter implements ModelConver
         String description = resolveDescription(a, annotations, schemaAnnotation);
         if (StringUtils.isNotBlank(description)) {
             schema.description(description);
+        }
+        List<String> groups = resolveGroups(a, annotations, schemaAnnotation);
+        if (groups != null && !groups.isEmpty()) {
+            schema.groups(groups);
         }
         String title = resolveTitle(a, annotations, schemaAnnotation);
         if (StringUtils.isNotBlank(title)) {
